@@ -14,10 +14,15 @@ class ViewController: UIViewController {
     var current = Date()
 
     @IBAction func showDateTimePicker(sender: AnyObject) {
-        let min = Date().addingTimeInterval(-60 * 60 * 24 * 4)
-        let max = Date().addingTimeInterval(60 * 60 * 24 * 4)
-        let picker = DateTimePicker.show(selected: current, minimumDate: min, maximumDate: max)
-        picker.highlightColor = UIColor(red: 255.0/255.0, green: 138.0/255.0, blue: 138.0/255.0, alpha: 1)
+        let now = Date()
+        let min = now.addingTimeInterval(60 * 5)
+        let max = now.addingTimeInterval(60 * 60 * 24 * 3)
+        let picker = DateTimePicker.show(selected: now.addingTimeInterval(60 * 60 * 3), minimumDate: min, maximumDate: max)
+        picker.highlightColor = UIColor(red:0.23, green:0.37, blue:0.63, alpha:1.00)
+        picker.doneButtonColor = UIColor(red:0.23, green:0.37, blue:0.63, alpha:1.00)
+        picker.disableColor = picker.darkColor.withAlphaComponent(0.3)
+        picker.dateFormat = "YYYY-MM-dd HH:mm"
+        
         picker.doneButtonTitle = "!! DONE DONE !!"
         picker.todayButtonTitle = "Today"
         picker.completionHandler = { date in

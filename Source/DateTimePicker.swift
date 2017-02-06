@@ -28,6 +28,12 @@ import UIKit
     }
     
     public var darkColor = UIColor(red: 0, green: 22.0/255.0, blue: 39.0/255.0, alpha: 1)
+    public var doneButtonColor = UIColor(red: 0, green: 22.0/255.0, blue: 39.0/255.0, alpha: 1) {
+        didSet {
+            doneButton.backgroundColor = doneButtonColor
+        }
+    }
+    public var disableColor = UIColor(red: 0, green: 22.0/255.0, blue: 39.0/255.0, alpha: 1).withAlphaComponent(0.2)
     
     public var daysBackgroundColor = UIColor(red: 239.0/255.0, green: 243.0/255.0, blue: 244.0/255.0, alpha: 1)
     
@@ -45,6 +51,7 @@ import UIKit
     
     public var selectedDate = Date() {
         didSet {
+            updateDoneButtonState()
             resetDateTitle()
         }
     }
@@ -181,7 +188,7 @@ import UIKit
         doneButton.frame = CGRect(x: 10, y: contentView.frame.height - 10 - 44, width: contentView.frame.width - 20, height: 44)
         doneButton.setTitle(doneButtonTitle, for: .normal)
         doneButton.setTitleColor(.white, for: .normal)
-        doneButton.backgroundColor = darkColor.withAlphaComponent(0.5)
+        doneButton.backgroundColor = doneButtonColor
         doneButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 13)
         doneButton.layer.cornerRadius = 3
         doneButton.layer.masksToBounds = true
@@ -331,6 +338,23 @@ import UIKit
                 
                 break
             }
+        }
+    }
+    
+    func updateDoneButtonState() {
+        guard let minimumDate = minimumDate,
+              let maximumDate = maximumDate else
+        {
+                return
+        }
+        if minimumDate.compare(selectedDate) == .orderedDescending ||
+           maximumDate.compare(selectedDate) == .orderedAscending
+        {
+            doneButton.isEnabled = false
+            doneButton.backgroundColor = disableColor
+        } else {
+            doneButton.isEnabled = true
+            doneButton.backgroundColor = doneButtonColor
         }
     }
     
