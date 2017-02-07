@@ -22,7 +22,7 @@ class ViewController: UIViewController {
         picker.doneButtonColor = UIColor(red:0.23, green:0.37, blue:0.63, alpha:1.00)
         picker.disableColor = picker.darkColor.withAlphaComponent(0.3)
         picker.dateFormat = "YYYY-MM-dd HH:mm"
-        
+        picker.titleLabelText = "Send the mail later within 72 hours"
         picker.doneButtonTitle = "!! DONE DONE !!"
         picker.todayButtonTitle = "Today"
         picker.completionHandler = { date in

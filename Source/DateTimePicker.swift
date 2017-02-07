@@ -33,6 +33,13 @@ import UIKit
             doneButton.backgroundColor = doneButtonColor
         }
     }
+    
+    public var titleLabelText = "Select Date" {
+        didSet {
+            resetDateTitle()
+        }
+    }
+    
     public var disableColor = UIColor(red: 0, green: 22.0/255.0, blue: 39.0/255.0, alpha: 1).withAlphaComponent(0.2)
     
     public var daysBackgroundColor = UIColor(red: 239.0/255.0, green: 243.0/255.0, blue: 244.0/255.0, alpha: 1)
@@ -52,15 +59,10 @@ import UIKit
     public var selectedDate = Date() {
         didSet {
             updateDoneButtonState()
-            resetDateTitle()
         }
     }
     
-    public var dateFormat = "HH:mm dd/MM/YYYY" {
-        didSet {
-            resetDateTitle()
-        }
-    }
+    public var dateFormat = "HH:mm dd/MM/YYYY"
     
     public var todayButtonTitle = "Today" {
         didSet {
@@ -291,9 +293,8 @@ import UIKit
         guard dateTitleLabel != nil else {
             return
         }
-        let formatter = DateFormatter()
-        formatter.dateFormat = dateFormat
-        dateTitleLabel.text = formatter.string(from: selectedDate)
+        
+        dateTitleLabel.text = titleLabelText
         dateTitleLabel.sizeToFit()
         dateTitleLabel.center = CGPoint(x: contentView.frame.width / 2, y: 22)
     }
