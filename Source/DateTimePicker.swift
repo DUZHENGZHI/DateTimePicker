@@ -304,17 +304,19 @@ import UIKit
         var days = DateComponents()
         
         var dayCount = 0
+        var loadingMore = true
         repeat {
             days.day = dayCount
             dayCount += 1
             guard let date = calendar.date(byAdding: days, to: fromDate) else {
                 break;
             }
+            
             if date.compare(toDate) == .orderedDescending {
-                break
+                loadingMore = false
             }
             dates.append(date)
-        } while (true)
+        } while (loadingMore)
         
         self.dates = dates
         dayCollectionView.reloadData()
