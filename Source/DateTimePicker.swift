@@ -195,6 +195,7 @@ import UIKit
         doneButton.layer.cornerRadius = 3
         doneButton.layer.masksToBounds = true
         doneButton.addTarget(self, action: #selector(DateTimePicker.dismissView), for: .touchUpInside)
+        doneButton.accessibilityIdentifier = "datetime.picker.done"
         contentView.addSubview(doneButton)
         
         // hour table view
