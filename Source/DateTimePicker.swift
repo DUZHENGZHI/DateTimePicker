@@ -83,7 +83,7 @@ import UIKit
     internal var minuteTableView: UITableView!
     internal var dayCollectionView: UICollectionView!
     
-    private var contentView: UIView!
+    fileprivate var contentView: UIView!
     private var dateTitleLabel: UILabel!
     private var todayButton: UIButton!
     private var doneButton: UIButton!
@@ -122,8 +122,8 @@ import UIKit
                             width: screenSize.width,
                             height: screenSize.height)
         let tap = UITapGestureRecognizer(target: self, action: #selector(dismissViewWithoutSelect))
+        tap.delegate = self
         addGestureRecognizer(tap)
-        isUserInteractionEnabled = true
         
         // content view
         contentView = UIView(frame: CGRect(x: 0,
@@ -534,5 +534,12 @@ extension DateTimePicker: UICollectionViewDataSource, UICollectionViewDelegate {
                 selectedDate = selected
             }
         }
+    }
+}
+
+extension DateTimePicker: UIGestureRecognizerDelegate {
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        let location = touch.location(in: self)
+        return !contentView.frame.contains(location)
     }
 }
