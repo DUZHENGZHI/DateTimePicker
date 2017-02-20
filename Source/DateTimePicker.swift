@@ -76,7 +76,7 @@ import UIKit
             doneButton.setTitle(doneButtonTitle, for: .normal)
         }
     }
-    public var completionHandler: ((Date)->Void)?
+    public var completionHandler: ((Date?)->Void)?
     
     // private vars
     internal var hourTableView: UITableView!
@@ -121,6 +121,9 @@ import UIKit
                             y: 0,
                             width: screenSize.width,
                             height: screenSize.height)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissViewWithoutSelect))
+        addGestureRecognizer(tap)
+        isUserInteractionEnabled = true
         
         // content view
         contentView = UIView(frame: CGRect(x: 0,
@@ -359,6 +362,19 @@ import UIKit
         } else {
             doneButton.isEnabled = true
             doneButton.backgroundColor = doneButtonColor
+        }
+    }
+    
+    func dismissViewWithoutSelect() {
+        UIView.animate(withDuration: 0.3, animations: {
+            // animate to show contentView
+            self.contentView.frame = CGRect(x: 0,
+                                            y: self.frame.height,
+                                            width: self.frame.width,
+                                            height: self.contentHeight)
+        }) { (completed) in
+            self.completionHandler?(nil)
+            self.removeFromSuperview()
         }
     }
     

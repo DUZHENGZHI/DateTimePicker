@@ -26,6 +26,9 @@ class ViewController: UIViewController {
         picker.doneButtonTitle = "!! DONE DONE !!"
         picker.todayButtonTitle = "Today"
         picker.completionHandler = { date in
+            guard let date = date else {
+                return
+            }
             self.current = date
             let formatter = DateFormatter()
             formatter.dateFormat = "HH:mm dd/MM/YYYY"
