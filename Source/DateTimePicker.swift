@@ -97,7 +97,7 @@ import UIKit
     internal var components: DateComponents!
     
     
-    @objc open class func show(selected: Date? = nil, minimumDate: Date? = nil, maximumDate: Date? = nil) -> DateTimePicker {
+    @objc open class func show(selected: Date? = nil, minimumDate: Date? = nil, maximumDate: Date? = nil, in view: UIView) -> DateTimePicker {
         let dateTimePicker = DateTimePicker()
         dateTimePicker.selectedDate = selected ?? Date()
         dateTimePicker.minimumDate = minimumDate ?? Date(timeIntervalSinceNow: -3600 * 24 * 365 * 20)
@@ -107,7 +107,7 @@ import UIKit
         assert(dateTimePicker.selectedDate.compare(dateTimePicker.maximumDate) != .orderedDescending, "Selected date should be earlier or equal to maximum date")
         
         dateTimePicker.configureView()
-        UIApplication.shared.keyWindow?.addSubview(dateTimePicker)
+        view.addSubview(dateTimePicker)
         
         return dateTimePicker
     }
