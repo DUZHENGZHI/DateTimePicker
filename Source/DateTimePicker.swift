@@ -275,7 +275,7 @@ import UIKit
         }, completion: nil)
     }
     
-    func setToday() {
+    @objc func setToday() {
         selectedDate = Date()
         resetTime()
     }
@@ -365,7 +365,7 @@ import UIKit
         }
     }
     
-    func dismissViewWithoutSelect() {
+    @objc func dismissViewWithoutSelect() {
         UIView.animate(withDuration: 0.3, animations: {
             // animate to show contentView
             self.contentView.frame = CGRect(x: 0,
@@ -378,7 +378,7 @@ import UIKit
         }
     }
     
-    func dismissView() {
+    @objc func dismissView() {
         UIView.animate(withDuration: 0.3, animations: {
             // animate to show contentView
             self.contentView.frame = CGRect(x: 0,
